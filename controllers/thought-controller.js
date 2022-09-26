@@ -20,9 +20,10 @@ const thoughtController = {
       })
       .catch((err) => res.status(400).json(err));
   },
-
   // add thought to user
+  /* inceptThought */
   addThought({ body }, res) {
+    // consider checking if the user commenting actually exists
     Thought.create(body)
       .then(({ _id, username }) => {
         return User.findOneAndUpdate(
@@ -93,7 +94,7 @@ const thoughtController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No user found with this id!" });
+          res.status(404).json({ message: "No thought found with this id!" });
           return;
         }
         res.json(dbUserData);
