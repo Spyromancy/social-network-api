@@ -51,18 +51,6 @@ const userController = {
   deleteUser({ params }, res) {
     /* go throught the thoughts array
     delete each item individually*/
-    User.findOne({ _id: params.id }).then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(404).json({ message: "No user found with this id!" });
-        return;
-      }
-
-      Thought.deleteMany({ username: dbUserData.username }).then((results) =>
-        console.log(results)
-      );
-      res.json(dbUserData);
-    });
-
     User.findOneAndDelete({ _id: params.id })
       .then((deletedUser) => {
         if (!deletedUser) {
